@@ -4,7 +4,7 @@ from pydantic import BaseSettings
 class Settings(BaseSettings):
     API_V1_PREFIX: str = "/api"
     PROJECT_NAME: str = "ChatApp"
-    DATABASE_URL: str = "postgresql+psycopg2://postgres:postgres@localhost:5432/chatapp"
+    DATABASE_URL: str = "postgresql://pchat_user:qId4LzA68wITOrMLKyDwlqsXDilLewf1@dpg-d66b9gfgi27c73aa04tg-a/pchat"
     SECRET_KEY: str = "change-me"
     ACCESS_TOKEN_EXPIRE_MINUTES: int = 60 * 24
     ALGORITHM: str = "HS256"
