@@ -1,0 +1,22 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light;
+}
+
+body {
+  font-family: "Plus Jakarta Sans", sans-serif;
+  color: #0f172a;
+}
+
+.glass-panel {
+  background: rgba(255, 255, 255, 0.88);
+  box-shadow: 0 24px 48px rgba(15, 23, 42, 0.18);
+  backdrop-filter: blur(18px);
+}
+
+.message-bubble {
+  @apply px-4 py-3 rounded-2xl max-w-[70%] text-sm leading-relaxed;
+}
