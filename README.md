@@ -171,10 +171,31 @@ frontend/
 
 ## Deployment Notes
 - Backend on Render:
-  - Use a PostgreSQL instance and set `DATABASE_URL` in environment variables.
-  - Set `SECRET_KEY`, `ALGORITHM`, `ACCESS_TOKEN_EXPIRE_MINUTES`, and `CORS_ORIGINS`.
-  - Use the start command `uvicorn app.main:app --host 0.0.0.0 --port 10000`.
+  - Create a Web Service from the repo and set the root directory to `backend`.
+  - Build command: `pip install -r requirements.txt`.
+  - Start command: `uvicorn app.main:app --host 0.0.0.0 --port $PORT`.
+  - Environment variables:
+    - `DATABASE_URL` (Render Postgres URL)
+    - `SECRET_KEY`
+    - `ALGORITHM` (e.g. `HS256`)
+    - `ACCESS_TOKEN_EXPIRE_MINUTES`
+    - `CORS_ORIGINS` (comma-separated, include your Vercel URL)
 - Frontend on Vercel:
-  - Set `VITE_API_URL` and `VITE_WS_URL` environment variables.
+  - Import the repo and set the root directory to `frontend`.
   - Build command: `npm run build`.
   - Output directory: `dist`.
+  - Environment variables:
+    - `VITE_API_URL` (Render backend URL, https)
+    - `VITE_WS_URL` (Render backend URL, wss)
+    - `VITE_APP_URL` (Vercel frontend URL, https)
+
+## Deployment Checklist
+- Render: create Web Service for `backend`, set build/start commands, and add env vars.
+- Render: add Postgres and set `DATABASE_URL` + `CORS_ORIGINS` to your Vercel URL.
+- Vercel: import repo with root `frontend`, set build/output, and add `VITE_*` env vars.
+- Update `VITE_APP_URL` to the Vercel URL for QR links.
+- Redeploy frontend after env updates.
+
+## Optional Config Files
+- `render.yaml` in the repo root provides a Render blueprint template.
+- `frontend/vercel.json` provides Vercel build output configuration for Vite.
