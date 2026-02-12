@@ -17,7 +17,7 @@ const pickAvatarColor = (seed) => {
   return AVATAR_COLORS[num % AVATAR_COLORS.length];
 };
 
-const MessageList = ({ messages, currentUserId }) => {
+const MessageList = ({ messages, currentUserId, senderNameById = {} }) => {
   const endRef = useRef(null);
 
   useEffect(() => {
@@ -33,40 +33,50 @@ const MessageList = ({ messages, currentUserId }) => {
 
   return (
     <div className="flex-1 min-h-0 space-y-4 overflow-y-auto px-6 py-6">
-      {messages.map((message) => (
-        <div
-          key={message.id}
-          className={
-            message.sender_id === currentUserId || message.author === "me"
-              ? "flex items-end justify-end gap-2"
-              : "flex items-end justify-start gap-2"
-          }
-        >
-          {!(message.sender_id === currentUserId || message.author === "me") && (
-            <div
-              className={`h-8 w-8 rounded-full bg-gradient-to-br ${pickAvatarColor(
-                message.sender_id
-              )}`}
-            />
-          )}
+      {messages.map((message) => {
+        const isMine = message.sender_id === currentUserId || message.author === "me";
+        const senderName = isMine
+          ? "You"
+          : senderNameById[message.sender_id] || message.sender_name || message.author || "User";
+
+        return (
           <div
-            className={`message-bubble ${
-              message.sender_id === currentUserId || message.author === "me"
-                ? "bg-ink text-white rounded-br-md"
-                : "bg-white text-slate-600 rounded-bl-md"
-            }`}
+            key={message.id}
+            className={isMine ? "flex items-start justify-end gap-2.5" : "flex items-start justify-start gap-2.5"}
           >
-            {message.content}
+            {!isMine && (
+              <div
+                className={`mt-1 h-9 w-9 rounded-full bg-gradient-to-br ${pickAvatarColor(
+                  message.sender_id
+                )}`}
+              />
+            )}
+            <div className={`flex max-w-[60%] flex-col ${isMine ? "items-end" : "items-start"}`}>
+              <span
+                className={`mb-1 text-[11px] font-semibold text-slate-400 ${
+                  isMine ? "text-right" : "text-left"
+                }`}
+              >
+                {senderName}
+              </span>
+              <div
+                className={`message-bubble ${
+                  isMine ? "bg-ink text-white rounded-br-md" : "bg-white text-slate-600 rounded-bl-md"
+                }`}
+              >
+                {message.content}
+              </div>
+            </div>
+            {isMine && (
+              <div
+                className={`mt-1 h-9 w-9 rounded-full bg-gradient-to-br ${pickAvatarColor(
+                  message.sender_id || currentUserId
+                )}`}
+              />
+            )}
           </div>
-          {(message.sender_id === currentUserId || message.author === "me") && (
-            <div
-              className={`h-8 w-8 rounded-full bg-gradient-to-br ${pickAvatarColor(
-                message.sender_id || currentUserId
-              )}`}
-            />
-          )}
-        </div>
-      ))}
+        );
+      })}
       <div ref={endRef} />
     </div>
   );

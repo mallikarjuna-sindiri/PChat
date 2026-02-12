@@ -2,7 +2,7 @@ import ChatHeader from "../chat/ChatHeader";
 import MessageList from "../chat/MessageList";
 import MessageInput from "../chat/MessageInput";
 
-const ChatWindow = ({ activeChat, messages, onSend, currentUserId, groupMembers }) => {
+const ChatWindow = ({ activeChat, messages, onSend, currentUserId, groupMembers, senderNameById }) => {
   return (
     <section className="flex h-full min-h-0 flex-col rounded-3xl border border-white/60 bg-white/70 shadow-sm">
       <ChatHeader
@@ -14,7 +14,11 @@ const ChatWindow = ({ activeChat, messages, onSend, currentUserId, groupMembers 
         inviteCode={activeChat?.type === "group" ? activeChat.invite_code : null}
         members={activeChat?.type === "group" ? groupMembers : []}
       />
-      <MessageList messages={messages} currentUserId={currentUserId} />
+      <MessageList
+        messages={messages}
+        currentUserId={currentUserId}
+        senderNameById={senderNameById}
+      />
       <MessageInput onSend={onSend} disabled={!activeChat} />
     </section>
   );

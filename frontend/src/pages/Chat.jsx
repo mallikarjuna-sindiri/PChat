@@ -34,6 +34,19 @@ const Chat = () => {
     [chats, activeChatId]
   );
 
+  const senderNameById = useMemo(() => {
+    const map = {};
+    if (activeChat?.type === "group") {
+      groupMembers.forEach((member) => {
+        map[member.id] = member.display_name || member.username;
+      });
+    }
+    if (activeChat?.type === "direct" && activeChat.peer_id) {
+      map[activeChat.peer_id] = activeChat.title;
+    }
+    return map;
+  }, [activeChat, groupMembers]);
+
   const appendMessage = (message) => {
     setMessages((prev) =>
       prev.some((item) => String(item.id) === String(message.id)) ? prev : [...prev, message]
@@ -339,6 +352,7 @@ const Chat = () => {
                   onSend={handleSend}
                   currentUserId={currentUser?.id}
                   groupMembers={groupMembers}
+                  senderNameById={senderNameById}
                 />
               </div>
             )}
@@ -385,6 +399,7 @@ const Chat = () => {
             onSend={handleSend}
             currentUserId={currentUser?.id}
             groupMembers={groupMembers}
+            senderNameById={senderNameById}
           />
         </div>
         <div className="hidden lg:block h-full min-h-0">

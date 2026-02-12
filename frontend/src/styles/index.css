@@ -18,5 +18,5 @@ body {
 }
 
 .message-bubble {
-  @apply px-4 py-3 rounded-2xl max-w-[70%] text-sm leading-relaxed;
+  @apply w-fit max-w-full px-3 py-2.5 rounded-2xl text-[13px] leading-relaxed break-words whitespace-pre-wrap;
 }

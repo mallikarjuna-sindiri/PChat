@@ -46,7 +46,7 @@ const ChatHeader = ({ title, subtitle, inviteCode, members = [], isGroup = false
               People
             </button>
             <div className="relative h-10 w-10 overflow-hidden rounded-lg border border-white/40 bg-white">
-              <img src={inviteQr} alt="Group QR" className="h-10 w-10 blur-sm" />
+              <img src={inviteQr} alt="Group QR" className="h-8 w-8 blur-sm" />
               <div className="absolute inset-0 flex items-center justify-center bg-white/40 backdrop-blur-sm">
                 <button
                   type="button"
