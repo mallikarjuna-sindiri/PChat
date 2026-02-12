@@ -9,6 +9,7 @@ const Profile = () => {
   const [displayName, setDisplayName] = useState("");
   const [uniqueId, setUniqueId] = useState("");
   const [qrCodeUrl, setQrCodeUrl] = useState("");
+  const [showQr, setShowQr] = useState(false);
   const [error, setError] = useState(null);
   const [saving, setSaving] = useState(false);
 
@@ -89,11 +90,26 @@ const Profile = () => {
             </button>
           </div>
           <div className="rounded-2xl bg-white/70 p-4 text-center">
-            <div className="mx-auto flex h-32 w-32 items-center justify-center rounded-2xl bg-slate-100">
+            <div className="relative mx-auto flex h-32 w-32 items-center justify-center overflow-hidden rounded-2xl bg-slate-100">
               {qrCodeUrl ? (
-                <img src={qrCodeUrl} alt="User QR" className="h-28 w-28" />
+                <img
+                  src={qrCodeUrl}
+                  alt="User QR"
+                  className={`h-28 w-28 transition ${showQr ? "" : "blur-md"}`}
+                />
               ) : (
                 <span className="text-xs text-slate-400">QR code</span>
+              )}
+              {qrCodeUrl && !showQr && (
+                <div className="absolute inset-0 flex items-center justify-center bg-white/40 backdrop-blur-sm">
+                  <button
+                    type="button"
+                    onClick={() => setShowQr(true)}
+                    className="rounded-lg bg-ink/90 px-3 py-1.5 text-xs font-semibold text-white"
+                  >
+                    Show QR
+                  </button>
+                </div>
               )}
             </div>
             <p className="mt-4 text-sm text-slate-500">Unique ID</p>

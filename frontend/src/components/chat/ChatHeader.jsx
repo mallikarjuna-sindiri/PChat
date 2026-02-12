@@ -45,13 +45,18 @@ const ChatHeader = ({ title, subtitle, inviteCode, members = [], isGroup = false
             >
               People
             </button>
-            <button onClick={() => setShowInviteQr(true)} className="rounded-lg">
-              <img
-                src={inviteQr}
-                alt="Group QR"
-                className="h-10 w-10 rounded-lg border border-white/40 bg-white"
-              />
-            </button>
+            <div className="relative h-10 w-10 overflow-hidden rounded-lg border border-white/40 bg-white">
+              <img src={inviteQr} alt="Group QR" className="h-10 w-10 blur-sm" />
+              <div className="absolute inset-0 flex items-center justify-center bg-white/40 backdrop-blur-sm">
+                <button
+                  type="button"
+                  onClick={() => setShowInviteQr(true)}
+                  className="rounded-md px-2 py-1 text-[10px] font-semibold text-black"
+                >
+                  Show QR
+                </button>
+              </div>
+            </div>
             {showMembers && (
               <div className="absolute right-0 top-12 z-10 w-52 rounded-xl border border-white/70 bg-white p-3 text-xs shadow-lg">
                 <p className="text-slate-400">Members</p>
@@ -96,13 +101,18 @@ const ChatHeader = ({ title, subtitle, inviteCode, members = [], isGroup = false
             >
               People
             </button>
-            <button onClick={() => setShowInviteQr(true)} className="rounded-xl">
-              <img
-                src={inviteQr}
-                alt="Group QR"
-                className="h-14 w-14 rounded-xl border border-white/40 bg-white"
-              />
-            </button>
+            <div className="relative h-14 w-14 overflow-hidden rounded-xl border border-white/40 bg-white">
+              <img src={inviteQr} alt="Group QR" className="h-14 w-14 blur-sm" />
+              <div className="absolute inset-0 flex items-center justify-center bg-white/40 backdrop-blur-sm">
+                <button
+                  type="button"
+                  onClick={() => setShowInviteQr(true)}
+                  className="rounded-md px-2 py-1 text-[10px] font-semibold text-black"
+                >
+                  Show QR
+                </button>
+              </div>
+            </div>
             {showMembers && (
               <div className="absolute right-0 top-12 z-10 w-52 rounded-xl border border-white/70 bg-white p-3 text-xs shadow-lg">
                 <p className="text-slate-400">Members</p>

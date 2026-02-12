@@ -40,9 +40,18 @@ const RightPanel = ({ currentUser, friends, groups, onStartChat, onLogout }) => 
         <p className="text-xs font-semibold text-slate-500">Your QR</p>
         <div className="mt-3 flex items-center justify-center">
           {userQr ? (
-            <button onClick={() => setShowUserQr(true)} className="rounded-xl">
-              <img src={userQr} alt="User QR" className="h-28 w-28" />
-            </button>
+            <div className="relative h-28 w-28 overflow-hidden rounded-xl">
+              <img src={userQr} alt="User QR" className="h-28 w-28 blur-md" />
+              <div className="absolute inset-0 flex items-center justify-center bg-white/40 backdrop-blur-sm">
+                <button
+                  type="button"
+                  onClick={() => setShowUserQr(true)}
+                  className="rounded-lg bg-ink/90 px-3 py-1.5 text-xs font-semibold text-white"
+                >
+                  Show QR
+                </button>
+              </div>
+            </div>
           ) : (
             <span className="text-xs text-slate-400">QR unavailable</span>
           )}
